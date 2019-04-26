@@ -5,9 +5,9 @@
 
 #include "../Common/MyWindows.h"
 
-#if defined(_WIN32) && !defined(UNDER_CE)
-#include <winioctl.h>
-#endif
+// #if defined(_WIN32) && !defined(UNDER_CE)
+// #include <winioctl.h>
+// #endif
 
 #include "../Common/MyString.h"
 #include "../Common/MyBuffer.h"

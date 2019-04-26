@@ -1533,6 +1533,10 @@ SOURCE=..\..\..\..\C\7zCrc.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\..\..\C\7zCrcOpt.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\..\C\7zStream.c
 # SUBTRACT CPP /YX /Yc /Yu
 # End Source File
@@ -1559,6 +1563,10 @@ SOURCE=..\..\..\..\C\Aes.c
 # Begin Source File
 
 SOURCE=..\..\..\..\C\Aes.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\..\C\AesOpt.c
 # End Source File
 # Begin Source File
 
@@ -2930,78 +2938,6 @@ SOURCE=..\..\..\Windows\TimeUtils.cpp
 # Begin Source File
 
 SOURCE=..\..\..\Windows\TimeUtils.h
-# End Source File
-# End Group
-# Begin Group "Asm"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\..\..\..\Asm\x86\7zAsm.asm
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\Asm\x86\7zCrcOpt.asm
-
-!IF  "$(CFG)" == "7z - Win32 Release"
-
-# Begin Custom Build
-OutDir=.\Release
-InputPath=..\..\..\..\Asm\x86\7zCrcOpt.asm
-InputName=7zCrcOpt
-
-"$(OutDir)\$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	ml.exe -c -Fo$(OutDir)\$(InputName).obj $(InputPath)
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "7z - Win32 Debug"
-
-# Begin Custom Build
-OutDir=.\Debug
-InputPath=..\..\..\..\Asm\x86\7zCrcOpt.asm
-InputName=7zCrcOpt
-
-"$(OutDir)\$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	ml.exe -c -omf -Fo$(OutDir)\$(InputName).obj $(InputPath)
-
-# End Custom Build
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\..\..\Asm\x86\AesOpt.asm
-
-!IF  "$(CFG)" == "7z - Win32 Release"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build
-OutDir=.\Release
-InputPath=..\..\..\..\Asm\x86\AesOpt.asm
-InputName=AesOpt
-
-"$(OutDir)\$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	ml.exe -c -Fo$(OutDir)\$(InputName).obj $(InputPath)
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "7z - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build
-OutDir=.\Debug
-InputPath=..\..\..\..\Asm\x86\AesOpt.asm
-InputName=AesOpt
-
-"$(OutDir)\$(InputName).obj" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	ml.exe -c -omf -WX -W3 -Fo$(OutDir)\$(InputName).obj $(InputPath)
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # End Group
 # End Target

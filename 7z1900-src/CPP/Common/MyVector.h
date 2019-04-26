@@ -23,8 +23,8 @@ class CRecordVector
     {
       unsigned newCapacity = _capacity + (_capacity >> 2) + 1;
       T *p;
-      MY_ARRAY_NEW(p, T, newCapacity);
-      // p = new T[newCapacity];
+      // MY_ARRAY_NEW(p, T, newCapacity);
+      p = new T[newCapacity];
       if (_size != 0)
         memcpy(p, _items, (size_t)_size * sizeof(T));
       delete []_items;
@@ -56,8 +56,8 @@ public:
   {
     if (size != 0)
     {
-      MY_ARRAY_NEW(_items, T, size)
-      // _items = new T[size];
+      // MY_ARRAY_NEW(_items, T, size)
+      _items = new T[size];
       _capacity = size;
     }
   }
@@ -67,8 +67,8 @@ public:
     if (newCapacity > _capacity)
     {
       T *p;
-      MY_ARRAY_NEW(p, T, newCapacity);
-      // p = new T[newCapacity];
+      // MY_ARRAY_NEW(p, T, newCapacity);
+      p = new T[newCapacity];
       if (_size != 0)
         memcpy(p, _items, (size_t)_size * sizeof(T));
       delete []_items;
@@ -85,8 +85,8 @@ public:
       delete []_items;
       _items = NULL;
       _capacity = 0;
-      MY_ARRAY_NEW(_items, T, newCapacity)
-      // _items = new T[newCapacity];
+      // MY_ARRAY_NEW(_items, T, newCapacity)
+      _items = new T[newCapacity];
       _capacity = newCapacity;
     }
   }

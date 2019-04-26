@@ -93,7 +93,7 @@ bool C7ZipArchiveItemImpl::IsEncrypted() const
 	NWindows::NCOM::CPropVariant prop;
 	bool isEncrypted = false;
 	if (m_pInArchive->GetProperty(m_nIndex, kpidEncrypted, &prop) == 0 && prop.vt == VT_BOOL)
-		isEncrypted = prop.bVal;
+        isEncrypted = prop.bVal==0?false:true;
 	return isEncrypted;
 }
 
@@ -200,7 +200,7 @@ bool C7ZipArchiveItemImpl::GetBoolProperty(lib7zip::PropertyIndexEnum propertyIn
 
 	if (m_pInArchive->GetProperty(m_nIndex, p7zip_index, &prop) == 0 &&
 		prop.vt == VT_BOOL) {
-		val = prop.bVal;
+		val = prop.bVal==0?false:true;
 		return true;
 	}
 

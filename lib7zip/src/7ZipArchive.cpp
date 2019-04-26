@@ -142,8 +142,8 @@ m_Archives(archives)
 
 C7ZipArchiveImpl::~C7ZipArchiveImpl()
 {
-    for(auto archive : m_Archives) {
-        delete archive;
+    for(std::vector<IInArchive*>::iterator archive = m_Archives.begin(); archive != m_Archives.end(); archive++) {
+        delete *archive;
     }
 }
 
@@ -299,6 +299,8 @@ STDMETHODIMP CArchiveExtractCallback::SetOperationResult(Int32 operationResult)
 		{
 			switch(operationResult)
 			{
+            case 0:
+                break;
 			default:
 				break;
 			}
@@ -399,7 +401,7 @@ bool C7ZipArchiveImpl::GetBoolProperty(lib7zip::PropertyIndexEnum propertyIndex,
 
 	if (m_pInArchive->GetArchiveProperty(p7zip_index, &prop) == 0 &&
 		prop.vt == VT_BOOL) {
-		val = prop.bVal;
+            val = prop.bVal==0?false:true;
 		return true;
 	}
 
