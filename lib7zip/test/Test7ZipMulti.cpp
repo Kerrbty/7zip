@@ -32,85 +32,6 @@ string narrow( const wstring& str )
       return stm.str() ;
 }
 
-class TestInStream : public C7ZipInStream
-{
-private:
-	FILE * m_pFile;
-	wstring m_strFileName;
-	wstring m_strFileExt;
-	int m_nFileSize;
-public:
-	TestInStream(wstring fileName) :
-	  m_pFile(NULL)
-      , m_strFileName(fileName)
-      , m_strFileExt(L"001")
-	{
-		string f = narrow(fileName);
-
-		m_pFile = fopen(f.c_str(), "rb");
-
-		if (m_pFile)
-		{
-			fseek(m_pFile, 0, SEEK_END);
-			m_nFileSize = ftell(m_pFile);
-			fseek(m_pFile, 0, SEEK_SET);
-		}
-	}
-
-	virtual ~TestInStream()
-	{
-		if (m_pFile)
-			fclose(m_pFile);
-	}
-
-public:
-	virtual wstring GetExt() const
-	{
-		return m_strFileExt;
-	}
-
-	virtual int Read(void *data, unsigned int size, unsigned int *processedSize)
-	{
-		wprintf(L"Read\n");
-		int count = fread(data, 1, size, m_pFile);
-		wprintf(L"Read:%d %d\n", size, count);
-
-		if (count >= 0)
-		{
-			if (processedSize != NULL)
-				*processedSize = count;
-
-			return 0;
-		}
-
-		return 1;
-	}
-
-	virtual int Seek(__int64 offset, unsigned int seekOrigin, unsigned __int64 *newPosition)
-	{
-		wprintf(L"Seek\n");
-		int result = fseek(m_pFile, (long)offset, seekOrigin);
-		wprintf(L"Seek:%ld %ld\n", offset, result);
-		if (!result)
-		{
-			if (newPosition)
-				*newPosition = ftell(m_pFile);
-
-			return 0;
-		}
-
-		return result;
-	}
-
-	virtual int GetSize(unsigned __int64 * size)
-	{
-		wprintf(L"Size\n");
-		if (size)
-			*size = m_nFileSize;
-		return 0;
-	}
-};
-
 class TestMultiVolumes : public C7ZipMultiVolumes
 {
 private:
@@ -165,97 +86,12 @@ public:
 	}
 
 	virtual C7ZipInStream * OpenCurrentVolumeStream() {
-		return new TestInStream(m_strCurVolume);
+		return new CDiskInStream(m_strCurVolume);
 	}
 
 	virtual unsigned __int64 GetCurrentVolumeSize() {
 		wprintf(L"get current volume size:%ls\n", m_strCurVolume.c_str());
 		return m_nFileSize;
-	}
-};
-
-class TestOutStream : public C7ZipOutStream
-{
-private:
-	FILE * m_pFile;
-	std::string m_strFileName;
-	wstring m_strFileExt;
-	int m_nFileSize;
-public:
-	TestOutStream(std::string fileName) :
-	  m_strFileName(fileName),
-	  m_strFileExt(L"7z")
-	{
-		m_pFile = fopen(fileName.c_str(), "wb");
-		m_nFileSize = 0;
-
-		auto pos = m_strFileName.find_last_of(".");
-
-		if (pos != m_strFileName.npos)
-		{
-#ifdef _WIN32
-			std::string tmp = m_strFileName.substr(pos + 1);
-			int nLen = MultiByteToWideChar(CP_ACP, 0, tmp.c_str(), -1, NULL, NULL);
-			LPWSTR lpszW = new WCHAR[nLen];
-			MultiByteToWideChar(CP_ACP, 0,
-			   tmp.c_str(), -1, lpszW, nLen);
-			m_strFileExt = lpszW;
-			// free the string
-			delete[] lpszW;
-#else
-			m_strFileExt = L"7z";
-#endif
-		}
-		wprintf(L"Ext:%ls\n", m_strFileExt.c_str());
-	}
-
-	virtual ~TestOutStream()
-	{
-		fclose(m_pFile);
-	}
-
-public:
-	int GetFileSize() const
-	{
-		return m_nFileSize;
-	}
-
-	virtual int Write(const void *data, unsigned int size, unsigned int *processedSize)
-	{
-		int count = fwrite(data, 1, size, m_pFile);
-		wprintf(L"Write:%d %d\n", size, count);
-
-		if (count >= 0)
-		{
-			if (processedSize != NULL)
-				*processedSize = count;
-
-			m_nFileSize += count;
-			return 0;
-		}
-
-		return 1;
-	}
-
-	virtual int Seek(__int64 offset, unsigned int seekOrigin, unsigned __int64 *newPosition)
-	{
-		int result = fseek(m_pFile, (long)offset, seekOrigin);
-
-		if (!result)
-		{
-			if (newPosition)
-				*newPosition = ftell(m_pFile);
-
-			return 0;
-		}
-
-		return result;
-	}
-
-	virtual int SetSize(unsigned __int64 size)
-	{
-		wprintf(L"SetFileSize:%ld\n", size);
-		return 0;
 	}
 };
 
@@ -297,8 +133,8 @@ int main(int argc, char * argv[])
 
 	C7ZipArchive * pArchive = NULL;
 
-	TestMultiVolumes volumes(L"test.7z.001");
-	TestOutStream oStream("TestMultiResult.txt");
+	TestMultiVolumes volumes(L"./compress/test.7z.001");
+	CDiskOutStream oStream(L"./out/TestMultiResult.txt");
 	if (lib.OpenMultiVolumeArchive(&volumes, &pArchive))
 	{
 		unsigned int numItems = 0;

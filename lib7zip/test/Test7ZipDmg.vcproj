@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="lib7zip"
-	ProjectGUID="{C74A26DB-52FF-4E30-969A-E39B8FB028BE}"
-	RootNamespace="lib7zip"
+	Name="Test7ZipDmg"
+	ProjectGUID="{3369EB36-2E2E-4988-81FD-C7F3F4366850}"
+	RootNamespace="Test7ZipDmg"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -23,7 +23,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)/bin/x86/"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -44,8 +44,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;../7z1900-src/&quot;;&quot;../7z1900-src/CPP/&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="../src"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -63,11 +63,20 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="lib7zip_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)/bin/x86/&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -79,6 +88,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -86,7 +98,7 @@
 			Name="Debug|x64"
 			OutputDirectory="$(SolutionDir)/bin/x64/"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -108,8 +120,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;../7z1900-src/&quot;;&quot;../7z1900-src/CPP/&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
+				AdditionalIncludeDirectories="../src"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -127,11 +139,20 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName)_d.lib"
+				Name="VCLinkerTool"
+				AdditionalDependencies="lib7zip_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)/bin/x64/&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -143,6 +164,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -150,7 +174,7 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)/bin/x86/"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -173,8 +197,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;../7z1900-src/&quot;;&quot;../7z1900-src/CPP/&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="../src/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -191,10 +215,21 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="lib7zip.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)/bin/x86/&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -206,6 +241,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -213,7 +251,7 @@
 			Name="Release|x64"
 			OutputDirectory="$(SolutionDir)/bin/x64/"
 			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -237,8 +275,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;../7z1900-src/&quot;;&quot;../7z1900-src/CPP/&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
+				AdditionalIncludeDirectories="../src/"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -255,10 +293,21 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="lib7zip.lib"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="&quot;$(SolutionDir)/bin/x64/&quot;"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -270,6 +319,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -277,134 +329,10 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="src"
+		<File
+			RelativePath=".\Test7ZipDmg.cpp"
 			>
-			<File
-				RelativePath=".\src\7ZipArchive.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipArchiveItem.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipArchiveOpenCallback.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipArchiveOpenCallback.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipCodecInfo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipCodecInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipCompressCodecsInfo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipCompressCodecsInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipDllHandler.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipDllHandler.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipFormatInfo.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipFormatInfo.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipFunctions.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipGetFileType.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipGetFileType.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipInDiskStream.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipInDiskStream.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipInStreamWrapper.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipInStreamWrapper.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7zipLibrary.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipObjectPtrArray.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipOpenArchive.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipOutDiskStream.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\7ZipOutDiskStream.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HelperFuncs.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\HelperFuncs.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\lib7zip.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\OSFunctions.h"
-				>
-			</File>
-			<File
-				RelativePath=".\src\OSFunctions_Win32.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\OSFunctions_Win32.h"
-				>
-			</File>
-			<File
-				RelativePath="..\7z1900-src\CPP\Windows\PropVariant.cpp"
-				>
-			</File>
-		</Filter>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

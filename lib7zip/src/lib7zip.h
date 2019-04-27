@@ -224,4 +224,8 @@ public:
 const char * GetLib7ZipLocale();
 const char * SetLib7ZipLocale(const char * loc);
 
+#include "7ZipGetFileType.h"
+#include "7ZipInDiskStream.h"
+#include "7ZipOutDiskStream.h"
+
 #endif

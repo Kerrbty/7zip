@@ -68,7 +68,11 @@ bool C7ZipLibrary::Initialize()
     if (m_bInitialized)
         return true;
 
+#ifdef _DEBUG
+    void * pHandler = Load7ZLibrary(L"7z_d");
+#else 
     void * pHandler = Load7ZLibrary(L"7z");
+#endif
 
     if (pHandler == NULL)
         return false;
