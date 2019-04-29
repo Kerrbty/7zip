@@ -48,7 +48,7 @@ int CDiskOutStream::GetFileSize() const
 
 int CDiskOutStream::Write(const void *data, unsigned int size, unsigned int *processedSize)
 {
-    if (m_pFile = INVALID_HANDLE_VALUE)
+    if (m_pFile == INVALID_HANDLE_VALUE)
     {
         return 1;
     }
