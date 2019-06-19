@@ -15,10 +15,95 @@ using namespace NWindows;
 #include "7ZipOutDiskStream.h"
 #include "7ZipGetFileType.h"
 
+static wchar_t* GetPathStr(wchar_t* szPath)
+{
+    if (szPath == NULL) 
+    {
+        return NULL;
+    }
+
+    size_t len = wcslen(szPath);
+    // if path is '//////' return '/' 
+    do {
+        if (len == 1 && (szPath[0] == L'\\' || szPath[0] == L'/')) 
+        {
+            return szPath;
+        }
+
+        if (szPath[len - 1] == L'\\' || szPath[len - 1] == L'/') 
+        {
+            szPath[len - 1] = L'\0';
+            len--;
+        }
+        else 
+        {
+            break;
+        }
+    } while (true);
+
+    wchar_t *lastx = wcsrchr(szPath, L'/');
+    wchar_t *nlastx = wcsrchr(szPath, L'\\');
+    if (lastx < nlastx) 
+    {
+        lastx = nlastx;
+    }
+    if (lastx != NULL) 
+    {
+        *lastx = L'\0';
+        if (lastx == szPath)
+        {
+            *lastx++ = L'.';
+            *lastx = L'\0'; 
+        }
+    }
+    return szPath;
+}
+
+static bool CreateMulDirectory(const wchar_t *szPath)
+{
+    bool mksuc = 0;
+    if (szPath == NULL) 
+    {
+        return 1;
+    }
+
+    int len = wcslen(szPath);
+    wchar_t *lp = (wchar_t*)malloc((len + 2)*sizeof(wchar_t));
+    wchar_t *p = lp;
+    const wchar_t *q = szPath;
+
+    memset(lp, 0, (len + 2)*sizeof(wchar_t));
+    while (*q != L'\0') 
+    {
+        if (*q == L'\\' || *q == L'/') 
+        {
+            mksuc = CreateDirectoryW(lp, NULL) ? 0 : 1;
+            *p = L'\\';
+        }
+        else 
+        {
+            *p = *q;
+        }
+        p++;
+        q++;
+    }
+    CreateDirectoryW(lp, NULL);
+    free(lp);
+    return mksuc;
+}
+
 CDiskOutStream::CDiskOutStream(std::wstring fileName) :
         m_strFileName(fileName),
         m_strFileExt(L"")
 {
+	wchar_t* lpFileName = (wchar_t*)malloc((fileName.length()+1)*sizeof(wchar_t));
+    if (lpFileName!=NULL)
+    {
+        wcscpy(lpFileName, fileName.c_str());
+        CreateMulDirectory(GetPathStr(lpFileName));
+        free(lpFileName);
+    }
+	
     m_pFile = CreateFileW(fileName.c_str(), GENERIC_READ|GENERIC_WRITE, FILE_SHARE_READ, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
     m_nFileSize = 0;
